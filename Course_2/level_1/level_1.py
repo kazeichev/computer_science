@@ -4,4 +4,4 @@ def squirrel(n):
     for i in range(1, n + 1):
         fact *= i
 
-    return str(fact)[0]
+    return int(str(fact)[0])

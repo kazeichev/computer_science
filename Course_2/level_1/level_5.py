@@ -3,7 +3,7 @@ def PatternUnlock(n, hits):
     result = ''
 
     for i in range(0, n):
-        if (i + 1) <= n:
+        if (i + 1) < n:
             if is_vertical_or_horizontal_sibling(hits[i], hits[i + 1]):
                 length += 1
             else:

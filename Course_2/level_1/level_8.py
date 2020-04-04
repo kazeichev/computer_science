@@ -25,14 +25,14 @@ def encode_string(rows, cols, string):
                 matrix[row].append(string[0])
                 string = string[1:]
 
-    for i in range(0, len(matrix)):
+    for i in range(0, rows):
         for row in matrix:
             if len(row) > i:
                 encoded_result += row[i]
 
         encoded_result += " "
 
-    return encoded_result
+    return encoded_result.strip()
 
 
 def decode_string(rows, string):

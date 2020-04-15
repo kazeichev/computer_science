@@ -33,6 +33,7 @@ def Add(chars):
 
     if undo_counts > 0:
         undo_stack = list()
+        cmd_stack = list()
         undo_counts = 0
 
     cmd_stack.append(string)
@@ -47,6 +48,7 @@ def Remove(n):
 
     if undo_counts > 0:
         undo_stack = list()
+        cmd_stack = list()
         undo_counts = 0
 
     cmd_stack.append(string)

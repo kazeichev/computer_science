@@ -1,7 +1,7 @@
 string = ''
 cmd_stack = list()
-undo_stack = list()
-undo_counts = 0
+index = -1
+undo_count = 0
 
 
 def BastShoe(command):
@@ -28,31 +28,33 @@ def BastShoe(command):
 def Add(chars):
     global string
     global cmd_stack
-    global undo_counts
-    global undo_stack
+    global undo_count
+    global index
 
-    if undo_counts > 0:
-        undo_stack = list()
-        cmd_stack = list()
-        undo_counts = 0
+    if undo_count > 0:
+        cmd_stack = [string]
+        undo_count = 0
+        index = 0
 
-    cmd_stack.append(string)
     string += chars
+    cmd_stack.append(string)
+    index += 1
 
 
 def Remove(n):
     global string
     global cmd_stack
-    global undo_counts
-    global undo_stack
+    global undo_count
+    global index
 
-    if undo_counts > 0:
-        undo_stack = list()
-        cmd_stack = list()
-        undo_counts = 0
+    if undo_count > 0:
+        cmd_stack = [string]
+        undo_count = 0
+        index = 0
 
-    cmd_stack.append(string)
     string = string[:-int(n)]
+    cmd_stack.append(string)
+    index += 1
 
 
 def Print(n):
@@ -68,22 +70,28 @@ def Print(n):
 def Undo():
     global string
     global cmd_stack
-    global undo_stack
-    global undo_counts
+    global undo_count
+    global index
 
-    if len(cmd_stack) > 0:
-        undo_stack.append(string)
-        string = cmd_stack[-1]
-        del cmd_stack[-1]
-        undo_counts += 1
+    index -= 1
+
+    if index < 0:
+        index = 0
+
+    string = cmd_stack[index]
+    undo_count += 1
 
 
 def Redo():
     global string
     global cmd_stack
-    global undo_stack
+    global undo_count
+    global index
 
-    if len(undo_stack) > 0:
-        cmd_stack.append(undo_stack[-1])
-        string = undo_stack[-1]
-        del undo_stack[-1]
+    index += 1
+
+    if index >= len(cmd_stack):
+        index = len(cmd_stack) - 1
+
+    string = cmd_stack[index]
+

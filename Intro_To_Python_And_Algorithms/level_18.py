@@ -1,33 +1,25 @@
-chars_combinations = list()
-is_magic = False
-
-
 def BiggerGreater(string):
-    global chars_combinations
-    global is_magic
+    result = bubble_sort(list(string), list(), False, len(string))
 
-    bubble_sort(list(string))
-
-    if not is_magic:
+    if not result.get('is_magic'):
         return ''
 
-    chars_combinations.sort()
+    combinations = result.get('combinations')
+    combinations.sort()
 
-    for i in chars_combinations:
+    for i in combinations:
         if i > string:
             return i
 
 
-def bubble_sort(chars):
-    global chars_combinations
-    global is_magic
+def bubble_sort(chars, combinations, is_magic, n):
+    for i in range(len(chars) - 2, -1, -1):
+        if chars[i + 1] > chars[i]:
+            chars[i + 1], chars[i] = chars[i], chars[i + 1]
+            combinations.append(''.join(chars[:]))
+            is_magic = True
 
-    for i in range(len(chars) - 1, -1, -1):
-        for j in range(i - 1, -1, -1):
-            if chars[i] > chars[j]:
-                chars[j], chars[j + 1] = chars[j + 1], chars[j]
-                chars_combinations.append(''.join(chars[:]))
-                is_magic = True
-                bubble_sort(chars)
+    if n > 0:
+        bubble_sort(chars, combinations, is_magic, n - 1)
 
-    return chars_combinations
+    return dict({'combinations': combinations, 'is_magic': is_magic})

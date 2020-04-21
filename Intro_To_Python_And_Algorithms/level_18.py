@@ -1,25 +1,41 @@
 def BiggerGreater(string):
-    result = bubble_sort(list(string), list(), False, len(string))
+    sequence = list(string)
+    permutations = list()
+    permutation_found = True
 
-    if not result.get('is_magic'):
+    while permutation_found:
+        permutations.append(sequence[:])
+        permutation_found = next_permutation(sequence, lambda x, y: x < y)
+
+    if len(permutations) == 1:
         return ''
 
-    combinations = result.get('combinations')
-    combinations.sort()
-
-    for i in combinations:
-        if i > string:
-            return i
+    for perm in permutations:
+        perm = "".join(perm)
+        if "".join(perm) > string:
+            return perm
 
 
-def bubble_sort(chars, combinations, is_magic, n):
-    for i in range(len(chars) - 2, -1, -1):
-        if chars[i + 1] > chars[i]:
-            chars[i + 1], chars[i] = chars[i], chars[i + 1]
-            combinations.append(''.join(chars[:]))
-            is_magic = True
+def next_permutation(sequence, compare) -> bool:
+    count = len(sequence)
+    i = count
 
-    if n > 0:
-        bubble_sort(chars, combinations, is_magic, n - 1)
+    while True:
+        if i < 2:
+            return False
+        i -= 1
+        if compare(sequence[i - 1], sequence[i]):
+            break
 
-    return dict({'combinations': combinations, 'is_magic': is_magic})
+    j = count
+    while j > i and not compare(sequence[i - 1], sequence[j - 1]):
+        j -= 1
+    sequence[i - 1], sequence[j - 1] = sequence[j - 1], sequence[i - 1]
+
+    j = count
+    while i < j - 1:
+        j -= 1
+        sequence[i], sequence[j] = sequence[j], sequence[i]
+        i += 1
+    return True
+

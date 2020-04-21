@@ -12,7 +12,7 @@ def BiggerGreater(string):
 
     for perm in permutations:
         perm = "".join(perm)
-        if "".join(perm) > string:
+        if perm > string:
             return perm
 
 
@@ -38,4 +38,3 @@ def next_permutation(sequence, compare) -> bool:
         sequence[i], sequence[j] = sequence[j], sequence[i]
         i += 1
     return True
-

@@ -1,9 +1,5 @@
 def SherlockValidString(string):
     is_valid = False
-
-    if len(string) == 2 and string[0] == string[1]:
-        return is_valid
-
     letters_count = get_letters_count(list(string))
 
     for i in range(0, len(letters_count)):

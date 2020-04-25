@@ -2,11 +2,14 @@ def SherlockValidString(string):
     is_valid = False
     letters_count = get_letters_count(list(string))
 
-    for i in range(0, len(letters_count)):
-        items = configure_items(letters_count, i)
+    if check_validity(letters_count):
+        is_valid = True
+    else:
+        for i in range(0, len(letters_count)):
+            items = configure_items(letters_count, i)
 
-        if check_validity(items):
-            is_valid = True
+            if check_validity(items):
+                is_valid = True
 
     return is_valid
 

@@ -7,8 +7,8 @@ def transform(a):
     b = list()
 
     for i in range(0, len(a)):
-        for j in range(0, len(a) - i - 1):
-            sub = a[j:i + j]
+        for j in range(0, len(a) - i):
+            sub = a[j:i + j + 1]
             if sub:
                 b.append(max(sub))
 
@@ -20,5 +20,4 @@ def generate_key(transformation):
 
 
 def is_key_even(key):
-    print(key, key % 2)
     return key % 2 == 0 if True else False

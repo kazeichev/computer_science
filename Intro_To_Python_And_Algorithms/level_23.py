@@ -1,4 +1,7 @@
 def Football(f, n):
+    if sorted(f) == f:
+        return False
+
     return iterate_sort(f, 0) or reverse_sort(f, 0)
 
 
@@ -44,4 +47,3 @@ def iterate_sort(array, n):
     else:
         is_sorted_successfully = True
         return is_sorted_successfully
-

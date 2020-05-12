@@ -43,6 +43,23 @@ def add_in_tail():
     print('Add in tail: success')
 
 
+def clean():
+    """
+        Очистка списка
+    """
+    ls = create_list({
+        'name_1': 1,
+        'name_2': 2,
+        'name_3': 3
+    })
+    ls.clean()
+
+    if ls.head is not None or ls.tail is not None:
+        raise ValueError("Очистка списка. ls.head is not None: {}, ls.tail is not None: {}".format(ls.head, ls.tail))
+
+    print("Clean: success")
+
+
 def delete():
     """
         Удалить один первый элемент
@@ -291,6 +308,7 @@ def linked_list_test():
     create_node()
     add_in_tail()
     delete()
+    clean()
     find_all()
     length()
     insert()

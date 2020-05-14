@@ -77,6 +77,27 @@ def delete():
         raise ValueError("Удалить один первый элемент. ls.head.next.value != 3 : {}".format(ls.head.next.value))
 
     """
+        Удалить первый элемент, если все значения одинаковы
+    """
+    ls = create_list({
+        'name_1': 1,
+        'name_2': 1,
+        'name_3': 1
+    })
+    ls.delete(1, False)
+    if ls.head.value != 1:
+        raise ValueError(
+            "Удалить первый элемент, если все значения одинаковы. ls.head.value != 1 : {}"
+            .format(ls.head.value)
+        )
+
+    if ls.len() != 2:
+        raise ValueError(
+            "Удалить первый элемент, если все значения одинаковы. ls.len() != 2 : {}"
+            .format(ls.len())
+        )
+
+    """
         Удалить два первых элемента
     """
     ls = create_list({
@@ -85,7 +106,7 @@ def delete():
         'name_3': 2,
         'name_4': 3
     })
-    ls.delete(1, False)
+    ls.delete(1, True)
     if ls.head.value != 2:
         raise ValueError("Удалить два первых элемента. ls.head.value != 2 : {}".format(ls.head.value))
 
@@ -159,7 +180,7 @@ def delete():
     if ls.find(1).next.value != 3:
         raise ValueError(
             "Удалить элемент в середине. ls.find(1).next.value != 3 : {}"
-                .format(ls.find(1).next.value)
+            .format(ls.find(1).next.value)
         )
 
     """
@@ -172,10 +193,10 @@ def delete():
         'name_4': 3,
         'name_5': 4
     })
-    ls.delete(3, False)
+    ls.delete(3, True)
     if ls.find(2).next.value != 4:
         raise ValueError(
-            "Удалить элемент в середине. ls.find(1).next.value != 3 : {}"
+            "Удалить два элемента в середине. ls.find(1).next.value != 3 : {}"
                 .format(ls.find(2).next.value)
         )
 

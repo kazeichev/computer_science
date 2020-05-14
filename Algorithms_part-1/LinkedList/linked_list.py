@@ -50,6 +50,8 @@ class LinkedList:
                 if prev_node is None and self.tail != current_node:
                     self.head = current_node.next
                     current_node = current_node.next
+                    if all is False:
+                        break
                     continue
                 elif prev_node is None and self.tail == current_node:
                     self.head = None
@@ -60,6 +62,8 @@ class LinkedList:
                 else:
                     prev_node.next = current_node.next
                     current_node = current_node.next
+                    if all is False:
+                        break
                     continue
 
                 if all is False:

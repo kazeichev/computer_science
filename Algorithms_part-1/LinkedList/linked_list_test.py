@@ -76,6 +76,9 @@ def delete():
     if ls.head.next.value != 3:
         raise ValueError("Удалить один первый элемент. ls.head.next.value != 3 : {}".format(ls.head.next.value))
 
+    if ls.tail.value != 3:
+        raise ValueError("Удалить один первый элемент. ls.tail.value != 3 : {}".format(ls.tail.value))
+
     """
         Удалить первый элемент, если все значения одинаковы
     """
@@ -97,6 +100,12 @@ def delete():
             .format(ls.len())
         )
 
+    if ls.tail.value != 1:
+        raise ValueError(
+            "Удалить первый элемент, если все значения одинаковы. ls.tail.value != 1 : {}"
+            .format(ls.tail.value)
+        )
+
     """
         Удалить два первых элемента
     """
@@ -112,6 +121,9 @@ def delete():
 
     if ls.head.next.value != 3:
         raise ValueError("Удалить два первых элемента. ls.head.next.value != 3 : {}".format(ls.head.next.value))
+
+    if ls.tail.value != 3:
+        raise ValueError("Удалить два первых элемента. ls.tail.value != 3 : {}".format(ls.tail.value))
 
     """
         Удалить первый и последний элементы
@@ -144,6 +156,10 @@ def delete():
         'name_4': 4
     })
     ls.delete(4, False)
+
+    if ls.head.value != 1:
+        raise ValueError("Удалить последний элемент. ls.head.value != 1 : {}".format(ls.head.value))
+
     if ls.tail.next is not None:
         raise ValueError("Удалить последний элемент. ls.tail.next is not None : {}".format(ls.tail.next))
 
@@ -161,10 +177,17 @@ def delete():
         'name_5': 4,
     })
     ls.delete(4, True)
+
     if ls.tail.value != 3 or ls.tail.next is not None:
         raise ValueError(
             "Удалить два последних элемента. ls.tail.value != 3: {}, ls.tail.next is not None: {}"
                 .format(ls.tail.value, ls.tail.next)
+        )
+
+    if ls.head.value != 1:
+        raise ValueError(
+            "Удалить два последних элемента. ls.head.value != 1: {}"
+                .format(ls.head.value)
         )
 
     """

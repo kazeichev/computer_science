@@ -272,6 +272,31 @@ def length():
 
 def insert():
     """
+        Вставка в пустой список
+    """
+    ls = LinkedList()
+    node_test = Node('test')
+    ls.insert(None, node_test)
+
+    if ls.head != node_test:
+        raise ValueError("Вставка в пустой список. ls.head != node_test: {}".format(ls.head))
+
+    """
+        Вставка перед первым элементом
+    """
+    ls = LinkedList()
+    node_1 = Node(1)
+    node_test = Node('test')
+    ls.add_in_tail(node_1)
+    ls.insert(None, node_test)
+
+    if ls.head != node_test:
+        raise ValueError("Вставка перед первым элементом. ls.head != node_test: {}".format(ls.head))
+
+    if ls.head.next != node_1:
+        raise ValueError("Вставка перед первым элементом. ls.head.next != node_1: {}".format(ls.head.next))
+
+    """
         Вставка после первого элемента
     """
     node_1 = Node(1)
@@ -302,6 +327,9 @@ def insert():
 
     if node_2.next != node_test:
         raise ValueError("Вставка по середине. node_2.next != node_tes: {}".format(node_2.next))
+
+    if node_test.next != node_3:
+        raise ValueError("Вставка по середине. node_test.next != node_3: {}".format(node_test.next))
 
     """
         Вставка в конце

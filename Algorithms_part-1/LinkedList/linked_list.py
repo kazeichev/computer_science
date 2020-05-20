@@ -96,6 +96,11 @@ class LinkedList:
 
             current_node = current_node.next
 
+        if afterNode is None and self.len() > 0:
+            newNode.next = self.head
+            self.head = newNode
+            return
+
         if current_node is None:
             self.head = newNode
             self.tail = newNode

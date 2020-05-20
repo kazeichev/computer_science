@@ -278,7 +278,7 @@ def insert():
     node_test = Node('test')
     ls.insert(None, node_test)
 
-    if ls.head != node_test:
+    if ls.head != node_test or ls.tail != node_test:
         raise ValueError("Вставка в пустой список. ls.head != node_test: {}".format(ls.head))
 
     """
@@ -296,6 +296,9 @@ def insert():
     if ls.head.next != node_1:
         raise ValueError("Вставка перед первым элементом. ls.head.next != node_1: {}".format(ls.head.next))
 
+    if ls.tail != node_1:
+        raise ValueError("Вставка перед первым элементом. ls.tail != node_1: {}".format(ls.tail))
+
     """
         Вставка после первого элемента
     """
@@ -310,7 +313,13 @@ def insert():
     ls.insert(node_1, node_test)
 
     if node_1.next != node_test:
-        raise ValueError("Вставка после первого элемента. node_1.next != node_tes: {}".format(node_1.next))
+        raise ValueError("Вставка после первого элемента. node_1.next != node_test: {}".format(node_1.next))
+
+    if ls.head != node_1 or ls.tail != node_3:
+        raise ValueError(
+            "Вставка после первого элемента. ls.head != node_1: {}, ls.tail != node_3: {}"
+            .format(ls.head.value, ls.tail.value)
+        )
 
     """
         Вставка по середине
@@ -331,6 +340,11 @@ def insert():
     if node_test.next != node_3:
         raise ValueError("Вставка по середине. node_test.next != node_3: {}".format(node_test.next))
 
+    if ls.head != node_1 or ls.tail != node_3:
+        raise ValueError(
+            "Вставка по середине. ls.head != node_1: {}, ls.tail != node_3: {}"
+            .format(ls.head.value, ls.tail.value)
+        )
     """
         Вставка в конце
     """
@@ -345,10 +359,13 @@ def insert():
     ls.insert(node_3, node_test)
 
     if node_3.next != node_test:
-        raise ValueError("Вставка в конце. node_3.next != node_test: {}".format(node_3.next))
+        raise ValueError("Вставка в конце. node_3.next != node_test: {}".format(node_3.next.value))
 
     if node_test.next is not None:
         raise ValueError("Вставка в конце. node_test.next is not None: {}".format(node_test.next))
+
+    if ls.tail != node_test:
+        raise ValueError("Вставка в конце. ls.tail != node_test: {}".format(ls.tail.value))
 
     print("Insert: success")
 

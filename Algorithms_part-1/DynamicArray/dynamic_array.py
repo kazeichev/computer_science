@@ -65,9 +65,15 @@ class DynArray:
         if i > len(self) or i < 0:
             raise IndexError("Incorrect index")
 
-        self.count -= 1
+        if len(self) < self.capacity // 2:
+            new_capacity = int(self.capacity // 1.5)
+            if new_capacity < 16:
+                self.resize(16)
+            else:
+                self.resize(new_capacity)
+
         is_next = False
-        for j in range(len(self)):
+        for j in range(len(self) - 1):
             if j == i:
                 self.array[j] = self.array[j + 1]
                 is_next = True
@@ -79,5 +85,4 @@ class DynArray:
             else:
                 self.array[j] = self.array[j]
 
-        if len(self) < self.capacity // 2 and self.capacity > 16:
-            self.resize(int(self.capacity // 1.5))
+        self.count -= 1

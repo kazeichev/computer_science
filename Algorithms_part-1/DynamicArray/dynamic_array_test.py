@@ -212,7 +212,7 @@ class DeleteWithModifyCapacityTestCase(unittest.TestCase):
         self.da.delete(15)
         self.da.delete(14)
 
-        self.assertEqual(21, self.da.capacity)
+        self.assertEqual(32, self.da.capacity)
         self.assertEqual(15, self.da.count)
 
 
@@ -242,20 +242,17 @@ class DeleteAtBadPositionTestCase(unittest.TestCase):
 class DeleteMultipleTimesFromArray(unittest.TestCase):
     def setUp(self) -> None:
         self.da = DynArray()
-        for i in range(1, 17):
+        for i in range(32):
             self.da.append(i)
 
     def test(self):
-        self.assertEqual(16, self.da.capacity)
-        self.assertEqual(16, self.da.count)
+        self.assertEqual(32, self.da.capacity)
+        self.assertEqual(32, self.da.count)
 
-        for i in range(3, 8):
-            self.assertEqual(i + 1, self.da[i])
-
-        for i in range(3, 8):
+        for i in reversed(range(len(self.da))):
             self.da.delete(i)
 
-        self.assertEqual(11, self.da.count)
+        self.assertEqual(0, self.da.count)
         self.assertEqual(16, self.da.capacity)
 
 

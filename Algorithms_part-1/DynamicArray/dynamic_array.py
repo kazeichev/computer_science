@@ -35,17 +35,26 @@ class DynArray:
         if i > len(self) or i < 0:
             raise IndexError("Incorrect index")
 
-        if len(self) == i:
-            self.append(itm)
-            return
+        if self.count >= self.capacity:
+            self.resize(2 * self.capacity)
 
-        tmp_array = self.make_array(self.capacity - i)
-        for j in range(len(self) - i):
-            tmp_array[j] = self.array[i + j]
+        is_next = False
+        tmp_array = self.make_array(self.capacity)
 
-        self.array[i] = itm
-        for j in range(len(self) - i):
-            self.array[j + i + 1] = tmp_array[j]
+        for j in range(len(self)):
+            tmp_array[j] = self.array[j]
+
+        for j in range(len(self) + 1):
+            if j == i:
+                self.array[j] = itm
+                is_next = True
+                continue
+
+            if is_next:
+                if (j - 1) >= 0:
+                    self.array[j] = tmp_array[j - 1]
+            else:
+                self.array[j] = tmp_array[j]
 
         self.count += 1
 

@@ -114,6 +114,24 @@ class InsertMultipleTimesTestCase(unittest.TestCase):
         self.assertEqual(21, self.da[20])
 
 
+class InsertWithCapacityModifyTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.da = DynArray()
+        for i in range(32):
+            self.da.append(i)
+
+    def test(self):
+        self.assertEqual(32, self.da.capacity)
+        self.assertEqual(32, self.da.count)
+
+        self.da.insert(16, 100)
+        self.da.insert(33, 200)
+
+        self.assertEqual(64, self.da.capacity)
+        self.assertEqual(34, self.da.count)
+        self.assertEqual(200, self.da[33])
+
+
 class DeleteFromEmptyArrayTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.da = DynArray()

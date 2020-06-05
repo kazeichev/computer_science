@@ -54,10 +54,9 @@ class PopFromStackWithSingleValueTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(1, self.s.size())
-
-        self.s.pop()
-
+        self.assertEqual(1, self.s.pop())
         self.assertEqual(0, self.s.size())
+        self.assertIsNone(self.s.pop())
 
 
 class PopFromStackWithMultipleValuesTestCase(unittest.TestCase):

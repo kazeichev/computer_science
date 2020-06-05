@@ -9,7 +9,9 @@ class Stack:
         if self.size() == 0:
             return None
 
+        last_element = self.stack[self.size() - 1]
         self.stack = self.stack[:-1]
+        return last_element
 
     def push(self, value):
         self.stack.append(value)

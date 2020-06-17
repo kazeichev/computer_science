@@ -29,6 +29,10 @@ class CompareStringsTestCase(unittest.TestCase):
         self.assertEqual(0, self.ol.compare("ааа", "ааа"))
         self.assertEqual(0, self.ol.compare("яяя", "яяя"))
         self.assertEqual(0, self.ol.compare("", ""))
+        self.assertEqual(0, self.ol.compare("   ", "   "))
+
+        self.assertEqual(-1, self.ol.compare("aaa  ", " zzz"))
+        self.assertEqual(+1, self.ol.compare(" zzz   ", " aa "))
 
 
 class AddToEmptyListTestCase(unittest.TestCase):

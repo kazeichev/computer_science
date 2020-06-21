@@ -40,12 +40,14 @@ class AddToEmptyListTestCase(unittest.TestCase):
         self.ol = OrderedList(True)
 
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
         self.assertIsNone(self.ol.head)
         self.assertIsNone(self.ol.tail)
 
         self.ol.add(1)
 
         self.assertEqual(1, self.ol.len())
+        self.assertEqual(1, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(1, self.ol.tail.value)
         self.assertEqual(1, self.ol.get_all()[0].value)
@@ -54,12 +56,14 @@ class AddToEmptyListTestCase(unittest.TestCase):
         self.ol = OrderedList(False)
 
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
         self.assertIsNone(self.ol.head)
         self.assertIsNone(self.ol.tail)
 
         self.ol.add(1)
 
         self.assertEqual(1, self.ol.len())
+        self.assertEqual(1, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(1, self.ol.tail.value)
         self.assertEqual(1, self.ol.get_all()[0].value)
@@ -74,6 +78,7 @@ class AddToHeadAscListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(5, self.ol.len())
+        self.assertEqual(5, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(5, self.ol.tail.value)
         self.assertIsNone(self.ol.head.prev)
@@ -82,6 +87,7 @@ class AddToHeadAscListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.add(0)
 
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(5, self.ol.tail.value)
         self.assertIsNone(self.ol.head.prev)
@@ -97,6 +103,7 @@ class AddToHeadAscListWithSingleValueTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(1, self.ol.len())
+        self.assertEqual(1, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(1, self.ol.tail.value)
         self.assertIsNone(self.ol.head.prev)
@@ -107,6 +114,7 @@ class AddToHeadAscListWithSingleValueTestCase(unittest.TestCase):
         self.ol.add(0)
 
         self.assertEqual(2, self.ol.len())
+        self.assertEqual(2, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertIsNone(self.ol.head.prev)
         self.assertEqual(1, self.ol.head.next.value)
@@ -124,6 +132,7 @@ class AddToHeadDescListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(5, self.ol.head.value)
         self.assertEqual(4, self.ol.head.next.value)
         self.assertEqual(5, self.ol.head.next.prev.value)
@@ -137,6 +146,7 @@ class AddToHeadDescListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.add(100)
 
         self.assertEqual(7, self.ol.len())
+        self.assertEqual(7, self.ol.len_reverse())
         self.assertEqual(100, self.ol.head.value)
         self.assertEqual(5, self.ol.head.next.value)
         self.assertEqual(100, self.ol.head.next.prev.value)
@@ -158,6 +168,7 @@ class AddToMiddleAscListTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(5, self.ol.tail.value)
         self.assertIsNone(self.ol.head.prev)
@@ -173,6 +184,7 @@ class AddToMiddleAscListTestCase(unittest.TestCase):
         self.assertListEqual(nodes, [0, 1, 2, 3, 4, 4, 5])
 
         self.assertEqual(7, self.ol.len())
+        self.assertEqual(7, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(5, self.ol.tail.value)
         self.assertIsNone(self.ol.head.prev)
@@ -187,6 +199,7 @@ class AddToMiddleDescListTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(5, self.ol.head.value)
         self.assertEqual(4, self.ol.head.next.value)
         self.assertEqual(5, self.ol.head.next.prev.value)
@@ -205,6 +218,7 @@ class AddToMiddleDescListTestCase(unittest.TestCase):
 
         self.assertListEqual(nodes, [5, 4, 4, 3, 2, 1, 0])
         self.assertEqual(7, self.ol.len())
+        self.assertEqual(7, self.ol.len_reverse())
         self.assertEqual(5, self.ol.head.value)
         self.assertEqual(4, self.ol.head.next.value)
         self.assertEqual(5, self.ol.head.next.prev.value)
@@ -224,6 +238,7 @@ class AddToEndAscListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(1, self.ol.head.next.value)
         self.assertIsNone(self.ol.head.prev)
@@ -236,6 +251,7 @@ class AddToEndAscListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.add(6)
 
         self.assertEqual(7, self.ol.len())
+        self.assertEqual(7, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(1, self.ol.head.next.value)
         self.assertIsNone(self.ol.head.prev)
@@ -253,6 +269,7 @@ class AddToEndAscListWithSingleValueTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(1, self.ol.len())
+        self.assertEqual(1, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(1, self.ol.tail.value)
 
@@ -264,6 +281,7 @@ class AddToEndAscListWithSingleValueTestCase(unittest.TestCase):
         self.ol.add(2)
 
         self.assertEqual(2, self.ol.len())
+        self.assertEqual(2, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(2, self.ol.head.next.value)
         self.assertEqual(1, self.ol.head.next.prev.value)
@@ -283,6 +301,7 @@ class AddToEndDescListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(1, self.ol.tail.value)
         self.assertEqual(2, self.ol.tail.prev.value)
         self.assertEqual(1, self.ol.tail.prev.next.value)
@@ -292,6 +311,7 @@ class AddToEndDescListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.add(0)
 
         self.assertEqual(7, self.ol.len())
+        self.assertEqual(7, self.ol.len_reverse())
         self.assertEqual(0, self.ol.tail.value)
         self.assertEqual(1, self.ol.tail.prev.value)
         self.assertEqual(0, self.ol.tail.prev.next.value)
@@ -306,6 +326,7 @@ class AddDifferentValuesToAscListTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
 
         self.assertIsNone(self.ol.head)
         self.assertIsNone(self.ol.tail)
@@ -319,6 +340,7 @@ class AddDifferentValuesToAscListTestCase(unittest.TestCase):
         self.ol.add(0)
 
         self.assertEqual(7, self.ol.len())
+        self.assertEqual(7, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(5, self.ol.head.next.value)
         self.assertEqual(self.ol.find(210), self.ol.tail)
@@ -337,6 +359,7 @@ class AddDifferentValuesToDescListTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
 
         self.assertIsNone(self.ol.head)
         self.assertIsNone(self.ol.tail)
@@ -350,6 +373,7 @@ class AddDifferentValuesToDescListTestCase(unittest.TestCase):
         self.ol.add(0)
 
         self.assertEqual(7, self.ol.len())
+        self.assertEqual(7, self.ol.len_reverse())
         self.assertEqual(210, self.ol.head.value)
         self.assertEqual(100, self.ol.head.next.value)
         self.assertEqual(self.ol.find(210), self.ol.head)
@@ -370,10 +394,12 @@ class FindDescTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertIsInstance(self.ol.find(0), Node)
         self.assertIsInstance(self.ol.find(5), Node)
         self.assertIsInstance(self.ol.find(3), Node)
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
 
     def test_empty(self):
         self.ol = OrderedList(False)
@@ -388,10 +414,12 @@ class FindAscTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertIsInstance(self.ol.find(0), Node)
         self.assertIsInstance(self.ol.find(5), Node)
         self.assertIsInstance(self.ol.find(3), Node)
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
 
     def test_empty(self):
         self.ol = OrderedList(True)
@@ -403,15 +431,19 @@ class DeleteFromEmptyListTestCase(unittest.TestCase):
         self.ol = OrderedList(True)
 
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
         self.assertIsNone(self.ol.delete(30))
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
 
     def test_desc(self):
         self.ol = OrderedList(False)
 
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
         self.assertIsNone(self.ol.delete(30))
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
 
 
 class DeleteFromListWithSingleValueTestCase(unittest.TestCase):
@@ -421,6 +453,7 @@ class DeleteFromListWithSingleValueTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(1, self.ol.len())
+        self.assertEqual(1, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(1, self.ol.tail.value)
 
@@ -432,6 +465,7 @@ class DeleteFromListWithSingleValueTestCase(unittest.TestCase):
         self.ol.delete(1)
 
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
         self.assertIsNone(self.ol.head)
         self.assertIsNone(self.ol.tail)
 
@@ -444,6 +478,7 @@ class DeleteFromHeadAscListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(1, self.ol.head.next.value)
 
@@ -452,6 +487,7 @@ class DeleteFromHeadAscListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.delete(0)
 
         self.assertEqual(5, self.ol.len())
+        self.assertEqual(5, self.ol.len_reverse())
         self.assertEqual(1, self.ol.head.value)
         self.assertEqual(2, self.ol.head.next.value)
         self.assertEqual(1, self.ol.head.next.prev.value)
@@ -467,6 +503,7 @@ class DeleteFromHeadDescListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(5, self.ol.head.value)
         self.assertEqual(4, self.ol.head.next.value)
         self.assertEqual(5, self.ol.head.next.prev.value)
@@ -475,6 +512,7 @@ class DeleteFromHeadDescListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.delete(5)
 
         self.assertEqual(4, self.ol.len())
+        self.assertEqual(4, self.ol.len_reverse())
         self.assertEqual(3, self.ol.head.value)
         self.assertEqual(2, self.ol.head.next.value)
         self.assertIsNone(self.ol.head.prev)
@@ -488,6 +526,7 @@ class DeleteFromEndAscListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(5, self.ol.tail.value)
         self.assertEqual(4, self.ol.tail.prev.value)
         self.assertEqual(5, self.ol.tail.prev.next.value)
@@ -497,6 +536,7 @@ class DeleteFromEndAscListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.delete(5)
 
         self.assertEqual(5, self.ol.len())
+        self.assertEqual(5, self.ol.len_reverse())
         self.assertEqual(4, self.ol.tail.value)
         self.assertEqual(3, self.ol.tail.prev.value)
         self.assertEqual(4, self.ol.tail.prev.next.value)
@@ -512,6 +552,7 @@ class DeleteFromEndDescListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(0, self.ol.tail.value)
         self.assertEqual(1, self.ol.tail.prev.value)
         self.assertEqual(0, self.ol.tail.prev.next.value)
@@ -523,6 +564,7 @@ class DeleteFromEndDescListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.delete(2)
 
         self.assertEqual(3, self.ol.len())
+        self.assertEqual(3, self.ol.len_reverse())
         self.assertEqual(3, self.ol.tail.value)
         self.assertEqual(4, self.ol.tail.prev.value)
         self.assertEqual(3, self.ol.tail.prev.next.value)
@@ -534,6 +576,7 @@ class DeleteFromEndDescListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.delete(5)
 
         self.assertEqual(0, self.ol.len())
+        self.assertEqual(0, self.ol.len_reverse())
         self.assertIsNone(self.ol.head)
         self.assertIsNone(self.ol.tail)
 
@@ -546,6 +589,7 @@ class DeleteFromMiddleAscListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
         self.assertEqual(0, self.ol.head.value)
         self.assertEqual(5, self.ol.tail.value)
 
@@ -556,6 +600,7 @@ class DeleteFromMiddleAscListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.delete(4)
 
         self.assertEqual(4, self.ol.len())
+        self.assertEqual(4, self.ol.len_reverse())
         self.assertEqual(self.ol.find(3).prev, self.ol.find(1))
         self.assertEqual(self.ol.find(3).next, self.ol.find(5))
 
@@ -568,6 +613,7 @@ class DeleteFromMiddleDescListWithMultipleValuesTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(6, self.ol.len())
+        self.assertEqual(6, self.ol.len_reverse())
 
         nodes = []
         for i in self.ol.get_all():
@@ -578,6 +624,7 @@ class DeleteFromMiddleDescListWithMultipleValuesTestCase(unittest.TestCase):
         self.ol.delete(3)
 
         self.assertEqual(5, self.ol.len())
+        self.assertEqual(5, self.ol.len_reverse())
 
         nodes = []
         for i in self.ol.get_all():

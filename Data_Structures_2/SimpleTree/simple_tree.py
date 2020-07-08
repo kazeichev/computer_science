@@ -36,29 +36,67 @@ class SimpleTree:
         parent = NodeToDelete.Parent
         parent.Children.remove(NodeToDelete)
 
-    def IterateNodes(self, children):
-        pass
+    def RecursiveNodes(self, node):
+        result = [node]
+        if len(node.Children) > 0:
+            for child in node.Children:
+                result.extend(self.RecursiveNodes(child))
+
+        return result
 
     def GetAllNodes(self):
         """
         ваш код выдачи всех узлов дерева в определённом порядке
         :return:
         """
-        # return [self.Root] + self.IterateNodes(self.Root.Children)
+        return self.RecursiveNodes(self.Root)
+
+    def RecursiveFindNodeByVal(self, val, node):
+        result = []
+        if node.NodeValue == val:
+            result.extend([node])
+
+        if len(node.Children) > 0:
+            for child in node.Children:
+                result.extend(self.RecursiveFindNodeByVal(val, child))
+
+        return result
 
     def FindNodesByValue(self, val):
-        # ваш код поиска узлов по значению
-        return []
+        """
+        ваш код поиска узлов по значению
+        :param val:
+        :return:
+        """
+        return self.RecursiveFindNodeByVal(val, self.Root)
 
     def MoveNode(self, OriginalNode, NewParent):
-        # ваш код перемещения узла вместе с его поддеревом --
-        # в качестве дочернего для узла NewParent
-        pass
+        """
+        ваш код перемещения узла вместе с его поддеревом --
+        в качестве дочернего для узла NewParent
+        :param OriginalNode:
+        :param NewParent:
+        :return:
+        """
+        self.DeleteNode(OriginalNode)
+        self.AddChild(NewParent, OriginalNode)
 
     def Count(self):
-        # количество всех узлов в дереве
-        return 0
+        """
+        количество всех узлов в дереве
+        :return:
+        """
+        return len(self.GetAllNodes())
 
     def LeafCount(self):
-        # количество листьев в дереве
-        return 0
+        """
+        количество листьев в дереве
+        :return:
+        """
+        count = 0
+        nodes = self.GetAllNodes()
+        for node in nodes:
+            if len(node.Children) == 0:
+                count += 1
+
+        return count

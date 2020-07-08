@@ -72,5 +72,50 @@ class DeleteNodeWithChildrenTestCase(BaseFullSimpleTreeTestCase):
         self.assertIn(self.node_2, self.node_root.Children)
 
 
+class GelAllNodesTestCase(BaseFullSimpleTreeTestCase):
+    def test(self):
+        self.assertEqual(self.node_root, self.tree.Root)
+        nodes = self.tree.GetAllNodes()
+        test_nodes = [self.node_root, self.node_1, self.node_3, self.node_4, self.node_2, self.node_5, self.node_6]
+
+        self.assertEqual(7, len(nodes))
+        self.assertListEqual(nodes, test_nodes)
+
+
+class FindNodeByValuesTestCase(BaseFullSimpleTreeTestCase):
+    def test(self):
+        self.assertEqual(self.node_root, self.tree.Root)
+        self.assertEqual([self.node_5], self.tree.FindNodesByValue("5"))
+        self.assertEqual([self.node_root], self.tree.FindNodesByValue("root"))
+        self.assertEqual([], self.tree.FindNodesByValue("222"))
+
+
+class MoveNodeTestCase(BaseFullSimpleTreeTestCase):
+    def test(self):
+        self.assertEqual(self.node_root, self.tree.Root)
+        self.tree.MoveNode(self.node_3, self.node_2)
+        self.assertIn(self.node_3, self.node_2.Children)
+        self.assertListEqual([self.node_5, self.node_6, self.node_3], self.node_2.Children)
+
+    def test_with_children(self):
+        self.assertEqual(self.node_root, self.tree.Root)
+        self.tree.MoveNode(self.node_1, self.node_2)
+        self.assertIn(self.node_1, self.node_2.Children)
+        self.assertIn(self.node_3, self.node_1.Children)
+        self.assertIn(self.node_4, self.node_1.Children)
+
+
+class CountNodesTestCase(BaseFullSimpleTreeTestCase):
+    def test(self):
+        self.assertEqual(self.node_root, self.tree.Root)
+        self.assertEqual(7, self.tree.Count())
+
+
+class LeafCountTestCase(BaseFullSimpleTreeTestCase):
+    def test(self):
+        self.assertEqual(self.node_root, self.tree.Root)
+        self.assertEqual(4, self.tree.LeafCount())
+
+
 if __name__ == '__main__':
     unittest.main()

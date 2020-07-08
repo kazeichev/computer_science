@@ -10,14 +10,41 @@ class SimpleTree:
         self.Root = root  # корень, может быть None
 
     def AddChild(self, ParentNode, NewChild):
-        pass  # ваш код добавления нового дочернего узла существующему ParentNode
+        """
+        ваш код добавления нового дочернего узла существующему ParentNode
+        :param ParentNode:
+        :param NewChild:
+        :return:
+        """
+
+        if ParentNode is None:
+            self.Root = NewChild
+            return
+
+        NewChild.Parent = ParentNode
+        ParentNode.Children.append(NewChild)
 
     def DeleteNode(self, NodeToDelete):
-        pass  # ваш код удаления существующего узла NodeToDelete
+        """
+        ваш код удаления существующего узла NodeToDelete
+        :param NodeToDelete:
+        :return:
+        """
+        if self.Root is None:
+            return
+
+        parent = NodeToDelete.Parent
+        parent.Children.remove(NodeToDelete)
+
+    def IterateNodes(self, children):
+        pass
 
     def GetAllNodes(self):
-        # ваш код выдачи всех узлов дерева в определённом порядке
-        return []
+        """
+        ваш код выдачи всех узлов дерева в определённом порядке
+        :return:
+        """
+        # return [self.Root] + self.IterateNodes(self.Root.Children)
 
     def FindNodesByValue(self, val):
         # ваш код поиска узлов по значению

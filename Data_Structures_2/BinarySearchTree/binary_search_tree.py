@@ -20,6 +20,7 @@ class BSTFind:  # промежуточный результат поиска
 class BST:
     def __init__(self, node):
         self.Root = node  # корень дерева, или None
+        self.count = 1 if node is not None else 0
 
     def FindNodeByKey(self, key):
         """
@@ -74,6 +75,8 @@ class BST:
         else:
             placement.Node.RightChild = node
 
+        self.count += 1
+
     def FinMinMax(self, FromNode, FindMax):
         """
         ищем максимальное/минимальное (узел) в поддереве
@@ -92,9 +95,9 @@ class BST:
                 next_node = node.LeftChild
 
             if next_node is None:
-                return node.NodeKey
+                return node
             else:
-                return find_max(next_node, find_max)
+                return find(next_node, find_max)
 
         return find(FromNode, FindMax)
 
@@ -106,36 +109,60 @@ class BST:
         """
 
         find = self.FindNodeByKey(key)
-        removable_node = find.Node
 
         if find.NodeHasKey is False:
             return False
 
-        if removable_node.RightChild.LeftChild is None:
-            replacement = removable_node.RightChild
-        else:
-            replacement = self.FinMinMax(removable_node.RightChild, False)
+        removable_node = find.Node
+        removable_parent = find.Node.Parent
 
-        replacement.RightChild = removable_node.RightChild
-        replacement.LeftChild = removable_node.LeftChild
-        replacement.Parent = removable_node.Parent
+        to_left = True if removable_node.NodeKey < removable_parent.NodeKey else False
 
-        if removable_node.Parent.NodeKey < removable_node.NodeKey:
-            removable_node.Parent.RightChild = replacement
-        else:
-            removable_node.Parent.LeftChild = replacement
+        if removable_node.RightChild is None and removable_node.LeftChild is not None:  # есть только левый ребенок
+            removable_node.LeftChild.Parent = removable_parent
+
+            if to_left:
+                removable_parent.LeftChild = removable_node.LeftChild
+            else:
+                removable_parent.RightChild = removable_node.LeftChild
+
+        elif removable_node.RightChild is not None and removable_node.RightChild.LeftChild is None:  # есть правый, у которого нет левого
+            removable_node.RightChild.Parent = removable_parent
+            removable_node.RightChild.LeftChild = removable_node.LeftChild
+
+            if to_left:
+                removable_parent.LeftChild = removable_node.RightChild
+            else:
+                removable_parent.RightChild = removable_node.RightChild
+
+        elif removable_node.RightChild is not None and removable_node.RightChild.LeftChild is not None:  # есть правый, у которого есть левый
+            replacement_node = self.FinMinMax(removable_node.RightChild, False)
+
+            if replacement_node.RightChild is not None:
+                replacement_node.Parent.LeftChild = replacement_node.RightChild
+            else:
+                replacement_node.Parent.LeftChild = None
+
+            replacement_node.RightChild = removable_node.RightChild
+            replacement_node.LeftChild = removable_node.LeftChild
+
+            if to_left:
+                removable_parent.LeftChild = replacement_node
+            else:
+                removable_parent.RightChild = replacement_node
+
+        else:  # Лист
+            if to_left:
+                removable_parent.LeftChild = None
+            else:
+                removable_parent.RightChild = None
+
+        self.count -= 1
 
     def Count(self):
         """
         количество узлов в дереве
         :return:
         """
-        def iterator(node, acc):
-            if node is None:
-                return acc
 
-            acc += 1
-            iterator(node.LeftChild, acc)
-            iterator(node.RightChild, acc)
-
-        return iterator(self.Root, 0)
+        return self.count

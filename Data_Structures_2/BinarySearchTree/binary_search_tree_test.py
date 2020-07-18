@@ -425,7 +425,6 @@ class RemoveFromTreeWithSingleNodeTestCase(unittest.TestCase):
         self.assertEqual(4, self.tree.Root.NodeKey)
         self.assertIsNone(self.tree.DeleteNodeByKey(4))
         self.assertEqual(0, self.tree.Count())
-        self.assertIsNone(self.tree.Root)
 
 
 class RemoveFromTreeWithSeveralNodes(unittest.TestCase):

@@ -249,6 +249,42 @@ class RemoveLeftLeafNodeTestCase(unittest.TestCase):
         self.assertEqual(1, self.tree.Root.LeftChild.LeftChild.NodeKey)
 
 
+class RemoveRightLeafNodeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+        self.tree.AddKeyValue(4, "value_4")
+        self.tree.AddKeyValue(2, "value_2")
+        self.tree.AddKeyValue(6, "value_6")
+        self.tree.AddKeyValue(5, "value_5")
+        self.tree.AddKeyValue(7, "value_7")
+
+    def test_left(self):
+        self.assertEqual(4, self.tree.Root.NodeKey)
+        self.assertEqual(6, self.tree.Root.RightChild.NodeKey)
+        self.assertEqual(5, self.tree.Root.RightChild.LeftChild.NodeKey)
+        self.assertEqual(7, self.tree.Root.RightChild.RightChild.NodeKey)
+
+        self.tree.DeleteNodeByKey(5)
+
+        self.assertEqual(4, self.tree.Root.NodeKey)
+        self.assertEqual(6, self.tree.Root.RightChild.NodeKey)
+        self.assertIsNone(self.tree.Root.RightChild.LeftChild)
+        self.assertEqual(7, self.tree.Root.RightChild.RightChild.NodeKey)
+
+    def test_right(self):
+        self.assertEqual(4, self.tree.Root.NodeKey)
+        self.assertEqual(6, self.tree.Root.RightChild.NodeKey)
+        self.assertEqual(5, self.tree.Root.RightChild.LeftChild.NodeKey)
+        self.assertEqual(7, self.tree.Root.RightChild.RightChild.NodeKey)
+
+        self.tree.DeleteNodeByKey(7)
+
+        self.assertEqual(4, self.tree.Root.NodeKey)
+        self.assertEqual(6, self.tree.Root.RightChild.NodeKey)
+        self.assertIsNone(self.tree.Root.RightChild.RightChild)
+        self.assertEqual(5, self.tree.Root.RightChild.LeftChild.NodeKey)
+
+
 class RemoveFromAdvanceTreeTestCase(BaseBinarySearchTreeTestCase):
     def test(self):
         self.tree.AddKeyValue(10, "value_10")
@@ -420,6 +456,19 @@ class RemoveFromTreeWithSeveralNodes(unittest.TestCase):
         self.assertEqual(4, self.tree.Root.NodeKey)
         self.assertIsNone(self.tree.Root.LeftChild)
         self.assertIsNone(self.tree.Root.RightChild)
+
+
+class RemoveMultipleTimesTestCase(BaseBinarySearchTreeTestCase):
+    def test(self):
+        self.tree.DeleteNodeByKey(2)
+        self.tree.DeleteNodeByKey(6)
+        self.tree.DeleteNodeByKey(3)
+        self.tree.DeleteNodeByKey(1)
+        self.tree.DeleteNodeByKey(7)
+        self.tree.DeleteNodeByKey(5)
+        self.tree.DeleteNodeByKey(4)
+
+        self.assertIsNone(self.tree.Root)
 
 
 class CountNotEmptyTreeTestCase(BaseBinarySearchTreeTestCase):

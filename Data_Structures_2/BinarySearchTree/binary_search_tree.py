@@ -6,6 +6,50 @@ class BSTNode:
         self.LeftChild = None  # левый потомок
         self.RightChild = None  # правый потомок
 
+    def hasLeftChild(self):
+        return self.LeftChild
+
+    def hasRightChild(self):
+        return self.RightChild
+
+    def isLeftChild(self):
+        return self.Parent and self.Parent.LeftChild == self
+
+    def isRightChild(self):
+        return self.Parent and self.Parent.RightChild == self
+
+    def isRoot(self):
+        return not self.Parent
+
+    def isLeaf(self):
+        return not (self.RightChild or self.LeftChild)
+
+    def hasAnyChildren(self):
+        return self.LeftChild or self.RightChild
+
+    def hasBothChildren(self):
+        return self.LeftChild and self.RightChild
+
+    def splice(self):
+        if self.isLeaf():
+            if self.isLeftChild():
+                self.Parent.LeftChild = None
+            else:
+                self.Parent.RightChild = None
+        elif self.hasAnyChildren():
+            if self.hasLeftChild():
+                if self.isLeftChild():
+                    self.Parent.LeftChild = self.LeftChild
+                else:
+                    self.Parent.RightChild = self.LeftChild
+                self.LeftChild.parent = self.Parent
+            else:
+                if self.isLeftChild():
+                    self.Parent.LeftChild = self.RightChild
+                else:
+                    self.Parent.RightChild = self.RightChild
+                self.RightChild.parent = self.Parent
+
 
 class BSTFind:  # промежуточный результат поиска
     def __init__(self):
@@ -107,55 +151,37 @@ class BST:
         :param key:
         :return: False если узел не найден
         """
-
         find = self.FindNodeByKey(key)
 
         if find.NodeHasKey is False:
             return False
 
         removable_node = find.Node
-        removable_parent = find.Node.Parent
 
-        to_left = True if removable_node.NodeKey < removable_parent.NodeKey else False
-
-        if removable_node.RightChild is None and removable_node.LeftChild is not None:  # есть только левый ребенок
-            removable_node.LeftChild.Parent = removable_parent
-
-            if to_left:
-                removable_parent.LeftChild = removable_node.LeftChild
+        if removable_node.isLeaf():
+            if removable_node.isLeftChild():
+                removable_node.Parent.LeftChild = None
+            elif removable_node.isRightChild():
+                removable_node.Parent.RightChild = None
+            elif removable_node == self.Root:
+                self.Root = None
+        elif removable_node.hasBothChildren():
+            successor = self.FinMinMax(removable_node.RightChild, False)
+            successor.splice()
+            removable_node.NodeKey = successor.NodeKey
+            removable_node.NodeValue = successor.NodeValue
+        else:
+            if removable_node.hasLeftChild():
+                if removable_node.isLeftChild():
+                    removable_node.Parent.LeftChild = removable_node.LeftChild
+                else:
+                    removable_node.Parent.RightChild = removable_node.LeftChild
+                removable_node.LeftChild.Parent = removable_node.Parent
             else:
-                removable_parent.RightChild = removable_node.LeftChild
-
-        elif removable_node.RightChild is not None and removable_node.RightChild.LeftChild is None:  # есть правый, у которого нет левого
-            removable_node.RightChild.Parent = removable_parent
-            removable_node.RightChild.LeftChild = removable_node.LeftChild
-
-            if to_left:
-                removable_parent.LeftChild = removable_node.RightChild
-            else:
-                removable_parent.RightChild = removable_node.RightChild
-
-        elif removable_node.RightChild is not None and removable_node.RightChild.LeftChild is not None:  # есть правый, у которого есть левый
-            replacement_node = self.FinMinMax(removable_node.RightChild, False)
-
-            if replacement_node.RightChild is not None:
-                replacement_node.Parent.LeftChild = replacement_node.RightChild
-            else:
-                replacement_node.Parent.LeftChild = None
-
-            replacement_node.RightChild = removable_node.RightChild
-            replacement_node.LeftChild = removable_node.LeftChild
-
-            if to_left:
-                removable_parent.LeftChild = replacement_node
-            else:
-                removable_parent.RightChild = replacement_node
-
-        else:  # Лист
-            if to_left:
-                removable_parent.LeftChild = None
-            else:
-                removable_parent.RightChild = None
+                successor = self.FinMinMax(removable_node.RightChild, False)
+                successor.splice()
+                removable_node.NodeKey = successor.NodeKey
+                removable_node.NodeValue = successor.NodeValue
 
         self.count -= 1
 

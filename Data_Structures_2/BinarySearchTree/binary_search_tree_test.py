@@ -409,10 +409,15 @@ class RemoveFromLargeTreeTestCase(unittest.TestCase):
         self.assertEqual(13, self.tree.Root.RightChild.RightChild.LeftChild.NodeKey)
 
 
-class RemoveRootTestCase(BaseBinarySearchTreeTestCase):
+class RemoveRootTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+        self.tree.AddKeyValue(4, "value_4")
+
     def test(self):
         self.assertEqual(4, self.tree.Root.NodeKey)
         self.tree.DeleteNodeByKey(4)
+        self.assertIsNone(self.tree.Root)
 
 
 class RemoveFromTreeWithSingleNodeTestCase(unittest.TestCase):

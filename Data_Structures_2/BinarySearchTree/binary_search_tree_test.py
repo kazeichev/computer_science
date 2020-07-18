@@ -423,7 +423,8 @@ class RemoveFromTreeWithSingleNodeTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(4, self.tree.Root.NodeKey)
-        self.tree.DeleteNodeByKey(4)
+        self.assertIsNone(self.tree.DeleteNodeByKey(4))
+        self.assertEqual(0, self.tree.Count())
         self.assertIsNone(self.tree.Root)
 
 

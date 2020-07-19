@@ -21,7 +21,7 @@ class AddKeyValueToEmptyTreeTestCase(unittest.TestCase):
     def test(self):
         self.assertIsNone(self.tree.Root)
         self.assertFalse(self.tree.FindNodeByKey(4).NodeHasKey)
-        self.tree.AddKeyValue(4, "value_4")
+        self.assertTrue(self.tree.AddKeyValue(4, "value_4"))
 
         self.assertEqual(4, self.tree.Root.NodeKey)
         self.assertEqual("value_4", self.tree.Root.NodeValue)
@@ -43,7 +43,7 @@ class AddKeyValueToNotEmptyTreeTestCase(unittest.TestCase):
         self.assertEqual(6, self.tree.Root.RightChild.NodeKey)
         self.assertFalse(self.tree.FindNodeByKey(1).NodeHasKey)
 
-        self.tree.AddKeyValue(1, "value_1")
+        self.assertTrue(self.tree.AddKeyValue(1, "value_1"))
         self.assertEqual(2, self.tree.Root.LeftChild.NodeKey)
         self.assertEqual(4, self.tree.Root.LeftChild.Parent.NodeKey)
         self.assertEqual(1, self.tree.Root.LeftChild.LeftChild.NodeKey)
@@ -55,7 +55,7 @@ class AddKeyValueToNotEmptyTreeTestCase(unittest.TestCase):
         self.assertEqual(6, self.tree.Root.RightChild.NodeKey)
         self.assertFalse(self.tree.FindNodeByKey(7).NodeHasKey)
 
-        self.tree.AddKeyValue(7, "value_7")
+        self.assertTrue(self.tree.AddKeyValue(7, "value_7"))
         self.assertEqual(6, self.tree.Root.RightChild.NodeKey)
         self.assertEqual(4, self.tree.Root.RightChild.Parent.NodeKey)
         self.assertEqual(7, self.tree.Root.RightChild.RightChild.NodeKey)

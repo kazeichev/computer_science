@@ -120,6 +120,7 @@ class BST:
             placement.Node.RightChild = node
 
         self.count += 1
+        return True
 
     def FinMinMax(self, FromNode, FindMax):
         """

@@ -184,6 +184,7 @@ class BST:
                 removable_node.NodeValue = successor.NodeValue
 
         self.count -= 1
+        return True
 
     def Count(self):
         """

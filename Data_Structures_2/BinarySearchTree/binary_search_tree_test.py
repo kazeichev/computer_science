@@ -507,5 +507,165 @@ class CountTreeWithSingleNodeTestCase(unittest.TestCase):
         self.assertEqual(1, self.tree.Count())
 
 
+class WideAllNodesInNotEmptyTreeTestCase(BaseBinarySearchTreeTestCase):
+    def test(self):
+        nodes = self.tree.WideAllNodes()
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [4, 2, 6, 1, 3, 5, 7])
+
+
+class WideAllNodesInEmptyTreeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+
+    def test(self):
+        nodes = self.tree.WideAllNodes()
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [])
+
+
+class WideAllNodesInTreeWithSingleNodeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+        self.tree.AddKeyValue(4, "value_4")
+
+    def test(self):
+        nodes = self.tree.WideAllNodes()
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [4])
+
+
+class DeepAllNodesInOrderInNotEmptyTreeTestCase(BaseBinarySearchTreeTestCase):
+    def test(self):
+        nodes = self.tree.DeepAllNodes(0)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [1, 2, 3, 4, 5, 6, 7])
+
+
+class DeepAllNodesInOrderInEmptyTreeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+
+    def test(self):
+        nodes = self.tree.DeepAllNodes(0)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [])
+
+
+class DeepAllNodesInOrderInTreeWithSingleNodeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+        self.tree.AddKeyValue(4, "value_4")
+
+    def test(self):
+        nodes = self.tree.DeepAllNodes(0)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [4])
+
+
+class DeepAllNodesPostOrderInNotEmptyTreeTestCase(BaseBinarySearchTreeTestCase):
+    def test(self):
+        nodes = self.tree.DeepAllNodes(1)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [1, 3, 2, 5, 7, 6, 4])
+
+
+class DeepAllNodesPostOrderInEmptyTreeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+
+    def test(self):
+        nodes = self.tree.DeepAllNodes(1)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [])
+
+
+class DeepAllNodesPostOrderInTreeWithSingleNodeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+        self.tree.AddKeyValue(4, "value_4")
+
+    def test(self):
+        nodes = self.tree.DeepAllNodes(1)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [4])
+
+
+class DeepAllNodesPreOrderInNotEmptyTreeTestCase(BaseBinarySearchTreeTestCase):
+    def test(self):
+        nodes = self.tree.DeepAllNodes(2)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [4, 2, 1, 3, 6, 5, 7])
+
+
+class DeepAllNodesPreOrderInEmptyTreeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+
+    def test(self):
+        nodes = self.tree.DeepAllNodes(2)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [])
+
+
+class DeepAllNodesPreOrderInTreeWithSingleNodeTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = BST(None)
+        self.tree.AddKeyValue(4, "value_4")
+
+    def test(self):
+        nodes = self.tree.DeepAllNodes(2)
+        nodes_values = []
+
+        for node in nodes:
+            nodes_values.append(node.NodeKey)
+
+        self.assertListEqual(nodes_values, [4])
+
+
 if __name__ == '__main__':
     unittest.main()

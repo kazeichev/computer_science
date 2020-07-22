@@ -61,6 +61,25 @@ class BSTFind:  # промежуточный результат поиска
         # добавить новый узел левым потомком
 
 
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, item):
+        self.queue.append(item)
+
+    def dequeue(self):
+        if self.size() == 0:
+            return None
+
+        element = self.queue[0]
+        del self.queue[0]
+        return element
+
+    def size(self):
+        return len(self.queue)
+
+
 class BST:
     def __init__(self, node):
         self.Root = node  # корень дерева, или None
@@ -194,3 +213,71 @@ class BST:
         """
 
         return self.count
+
+    def WideAllNodes(self):
+        """
+        обход в ширину
+        :return:
+        """
+        if self.Root is None:
+            return []
+
+        queue = Queue()
+        queue.enqueue(self.Root)
+        nodes = []
+
+        while queue.size() != 0:
+            node = queue.dequeue()
+            nodes.append(node)
+
+            if node.hasLeftChild():
+                queue.enqueue(node.LeftChild)
+
+            if node.hasRightChild():
+                queue.enqueue(node.RightChild)
+
+        return nodes
+
+    def DeepAllNodes(self, deep_type):
+        """
+        обход в глубину
+        :param deep_type:
+        :return:
+        """
+
+        def in_order_traversal(node):
+            nodes = []
+            if node is not None:
+                nodes.extend(in_order_traversal(node.LeftChild))
+                nodes.extend([node])
+                nodes.extend(in_order_traversal(node.RightChild))
+
+            return nodes
+
+        def post_order_traversal(node):
+            nodes = []
+            if node is not None:
+                nodes.extend(post_order_traversal(node.LeftChild))
+                nodes.extend(post_order_traversal(node.RightChild))
+                nodes.extend([node])
+
+            return nodes
+
+        def pre_order_traversal(node):
+            nodes = []
+            if node is not None:
+                nodes.extend([node])
+                nodes.extend(pre_order_traversal(node.LeftChild))
+                nodes.extend(pre_order_traversal(node.RightChild))
+
+            return nodes
+
+        if self.Root is None:
+            return []
+
+        if deep_type == 0:
+            return in_order_traversal(self.Root)
+        elif deep_type == 1:
+            return post_order_traversal(self.Root)
+        elif deep_type == 2:
+            return pre_order_traversal(self.Root)

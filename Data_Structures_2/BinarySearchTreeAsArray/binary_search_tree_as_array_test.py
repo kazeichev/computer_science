@@ -1,5 +1,5 @@
 import unittest
-from binnary_search_tree_as_array import aBST
+from binary_search_tree_as_array import aBST, GenerateBBSTArray
 
 
 class AddKeyTestCase(unittest.TestCase):
@@ -53,3 +53,16 @@ class FindKeyIndexInEmptyTreeTestCase(unittest.TestCase):
 
     def test(self):
         self.assertEqual(0, self.tree.FindKeyIndex(50))
+
+
+class GenerateBBSTArrayTestCase(unittest.TestCase):
+    def test(self):
+        self.assertListEqual(
+            [50, 25, 75, 20, 37, 62, 84, 19, 21, 31, 43, 55, 63, 81, 92],
+            GenerateBBSTArray([81, 92, 55, 63, 31, 43, 84, 21, 19, 62, 37, 50, 25, 20, 75])
+        )
+
+
+class GenerateBBSTArrayFromEmptyListTestCase(unittest.TestCase):
+    def test(self):
+        self.assertIsNone(GenerateBBSTArray([]))

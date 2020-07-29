@@ -54,3 +54,19 @@ class aBST:
 
         self.Tree[index] = key
         return index
+
+
+def GenerateBBSTArray(a):
+    def binary_generate(array, tree, index):
+        if index > len(tree) or not array:
+            return None
+
+        center = int(len(array) / 2)
+        tree[index] = array[center]
+
+        binary_generate(array[:center], tree, 2 * index + 1)
+        binary_generate(array[center + 1:], tree, 2 * index + 2)
+
+        return tree
+
+    return binary_generate(sorted(a), [None] * (len(a)), 0)

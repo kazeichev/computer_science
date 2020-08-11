@@ -100,3 +100,31 @@ class SimpleTree:
                 count += 1
 
         return count
+
+    def total_count(self, node):
+        if node is None:
+            return []
+
+        nodes = [node]
+        for node in nodes:
+            nodes += node.Children
+
+        return len(nodes)
+
+    def EvenTrees(self):
+        """
+        Возвращает список нод между которыми можно удалить ребра и получить лес четных деревьев
+        :return:
+        """
+        edge_list = []
+        queue = [self.Root]
+
+        while len(queue) > 0:
+            for node in queue[0].Children:
+                queue.append(node)
+                if not self.total_count(node) % 2:
+                    edge_list.append(node.Parent)
+                    edge_list.append(node)
+            del queue[0]
+
+        return edge_list

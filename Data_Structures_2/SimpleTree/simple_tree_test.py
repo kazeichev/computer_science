@@ -117,5 +117,17 @@ class LeafCountTestCase(BaseFullSimpleTreeTestCase):
         self.assertEqual(4, self.tree.LeafCount())
 
 
+class EvenTreesWithNotEvenTree(BaseFullSimpleTreeTestCase):
+    def test(self):
+        self.assertListEqual([], self.tree.EvenTrees())
+
+
+class EvenTreesWithEvenTree(BaseFullSimpleTreeTestCase):
+    def test(self):
+        self.node_7 = SimpleTreeNode(7, None)
+        self.tree.AddChild(self.node_6, self.node_7)
+        self.assertListEqual([self.node_root, self.node_2, self.node_2, self.node_6], self.tree.EvenTrees())
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -73,6 +73,7 @@ class SimpleGraph:
 
         return indexes
 
+    # Поиск в глубину
     def DepthFirstSearch(self, VFrom, VTo):
         """
         узлы задаются позициями в списке vertex
@@ -108,6 +109,43 @@ class SimpleGraph:
 
         return search(Stack(), VFrom, VTo).get_raw_data()
 
+    # Поиск в ширину
+    def BreadthFirstSearch(self, VFrom, VTo):
+        for vertex in self.vertex:
+            vertex.Hit = False
+
+        current_vertex = self.vertex[VFrom]
+        searchable_vertex = self.vertex[VTo]
+        current_vertex.Hit = True
+
+        q = Queue()
+        prev = {}
+        q.enqueue(current_vertex)
+
+        while q.size() > 0:
+            v = q.dequeue()
+            v.Hit = True
+
+            if v == searchable_vertex:
+                current = v
+                path = [current]
+                index = self.vertex.index(current)
+
+                while index in prev:
+                    prev_vertex = prev[index]
+                    path.append(prev_vertex)
+                    index = self.vertex.index(prev_vertex)
+
+                path.reverse()
+                return path
+
+            for i in self.GetVertexNeighborIndexes(self.vertex.index(v)):
+                if self.vertex[i].Hit is not True:
+                    q.enqueue(self.vertex[i])
+                    prev[i] = v
+
+        return []
+
 
 class Stack:
     def __init__(self):
@@ -129,3 +167,22 @@ class Stack:
 
     def get_raw_data(self):
         return self.stack
+
+
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, item):
+        self.queue.append(item)
+
+    def dequeue(self):
+        if self.size() == 0:
+            return None
+
+        element = self.queue[0]
+        del self.queue[0]
+        return element
+
+    def size(self):
+        return len(self.queue)

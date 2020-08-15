@@ -1,6 +1,7 @@
 class Vertex:
     def __init__(self, val):
         self.Value = val
+        self.Hit = False
 
 
 class SimpleGraph:
@@ -62,3 +63,69 @@ class SimpleGraph:
         """
         self.m_adjacency[v1][v2] = 0
         self.m_adjacency[v2][v1] = 0
+
+    def GetVertexNeighborIndexes(self, v):
+        indexes = []
+
+        for i in range(0, self.max_vertex):
+            if self.m_adjacency[v][i] == 1:
+                indexes.append(i)
+
+        return indexes
+
+    def DepthFirstSearch(self, VFrom, VTo):
+        """
+        узлы задаются позициями в списке vertex
+        возвращается список узлов -- путь из VFrom в VTo
+        или [] если пути нету
+        :param VFrom:
+        :param VTo:
+        :return:
+        """
+
+        for vertex in self.vertex:
+            vertex.Hit = False
+
+        def search(stack, current_vertex_index, searchable_vertex_index):
+            current = self.vertex[current_vertex_index]
+            current.Hit = True
+            stack.push(current)
+
+            if self.IsEdge(current_vertex_index, searchable_vertex_index):
+                searchable = self.vertex[searchable_vertex_index]
+                stack.push(searchable)
+                return stack
+
+            for i in self.GetVertexNeighborIndexes(current_vertex_index):
+                if self.vertex[i].Hit is not True:
+                    return search(stack, i, searchable_vertex_index)
+
+            stack.pop()
+            if stack.size() == 0:
+                return stack
+
+            return search(stack, self.vertex.index(stack.pop()), searchable_vertex_index)
+
+        return search(Stack(), VFrom, VTo).get_raw_data()
+
+
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def size(self):
+        return len(self.stack)
+
+    def pop(self):
+        if self.size() == 0:
+            return None
+
+        last_element = self.stack[self.size() - 1]
+        self.stack = self.stack[:-1]
+        return last_element
+
+    def push(self, value):
+        self.stack.append(value)
+
+    def get_raw_data(self):
+        return self.stack

@@ -116,33 +116,28 @@ class SimpleGraph:
 
         current_vertex = self.vertex[VFrom]
         searchable_vertex = self.vertex[VTo]
-        current_vertex.Hit = True
 
-        q = Queue()
-        prev = {}
-        q.enqueue(current_vertex)
+        queue = Queue()
+        queue.enqueue(current_vertex)
+        came_from = {current_vertex: None}
 
-        while q.size() > 0:
-            v = q.dequeue()
-            v.Hit = True
+        while queue.size() > 0:
+            current = queue.dequeue()
 
-            if v == searchable_vertex:
-                current = v
+            if current == searchable_vertex:
                 path = [current]
-                index = self.vertex.index(current)
-
-                while index in prev:
-                    prev_vertex = prev[index]
-                    path.append(prev_vertex)
-                    index = self.vertex.index(prev_vertex)
+                while current != current_vertex:
+                    current = came_from[current]
+                    path.append(current)
 
                 path.reverse()
                 return path
 
-            for i in self.GetVertexNeighborIndexes(self.vertex.index(v)):
-                if self.vertex[i].Hit is not True:
-                    q.enqueue(self.vertex[i])
-                    prev[i] = v
+            for vertex_id in self.GetVertexNeighborIndexes(self.vertex.index(current)):
+                next_vertex = self.vertex[vertex_id]
+                if next_vertex not in came_from:
+                    queue.enqueue(next_vertex)
+                    came_from[next_vertex] = current
 
         return []
 

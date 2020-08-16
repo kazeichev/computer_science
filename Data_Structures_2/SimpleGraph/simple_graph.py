@@ -141,6 +141,41 @@ class SimpleGraph:
 
         return []
 
+    def WeakVertices(self):
+        """
+        возвращает список узлов вне треугольников
+        :return:
+        """
+        for vertex in self.vertex:
+            vertex.Hit = False
+
+        queue = Queue()
+        result = []
+        queue.enqueue(self.vertex[0])
+        came_from = {self.vertex[0]: None}
+
+        while queue.size() > 0:
+            isTriangle = False
+            current_vertex = queue.dequeue()
+            neighbors = self.GetVertexNeighborIndexes(self.vertex.index(current_vertex))
+            neighbors_len = range(len(neighbors))
+
+            for neighbor_id in neighbors:
+                neighbor = self.vertex[neighbor_id]
+                if neighbor not in came_from:
+                    queue.enqueue(neighbor)
+                    came_from[neighbor] = current_vertex
+
+            for i in neighbors_len:
+                for j in neighbors_len:
+                    if self.IsEdge(neighbors[i], neighbors[j]):
+                        isTriangle = True
+
+            if isTriangle is not True:
+                result.append(current_vertex)
+
+        return result
+
 
 class Stack:
     def __init__(self):

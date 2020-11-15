@@ -44,7 +44,7 @@ class BoundedStack:
     STATUS_PEEK_OK = 1
     STATUS_PEEK_ERR = 2
 
-    def __init__(self, max_size=32):
+    def __init__(self, max_size: int = 32):
         # Хранилище
         self.stack = []
 

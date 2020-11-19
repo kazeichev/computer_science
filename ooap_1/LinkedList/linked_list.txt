@@ -1,0 +1,8 @@
+АТД LinkedList
+
+class LinkedList<T>
+    public void LinkedList<T> // конструктор
+
+    // команды
+    public void head() // установить курсор на первый узел в списке
+    public void tail() // установить курсор на последний узел в списке

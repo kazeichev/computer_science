@@ -1,8 +1,88 @@
-АТД LinkedList
+# АТД LinkedList и Node
+
+class Node<T>
+    private <T> value // значение
+    private <Node> next // ссылка на след элемент
 
 class LinkedList<T>
     public void LinkedList<T> // конструктор
 
+    private <Node> head // голова
+    private <Node> tail // хвост
+    private <Node> cursor // курсор
+
+    private int right_status
+    private int remove_status
+    private int clear_status
+    private int replace_status
+    private int find_status
+    private int remove_all_status
+
+
+    public const int RIGHT_OK = 1
+    public const int RIGHT_ERR = 2
+
+    public const int REMOVE_OK = 1
+    public const int REMOVE_ERR = 2
+
+    public const int CLEAR_OK = 1
+    public const int CLEAR_ERR = 2
+
+    public const int REPLACE_OK = 1
+    public const int REPLACE_ERR = 2
+
+    public const int FIND_OK = 1
+    public const int FIND_ERR = 2
+
+    public const int REMOVE_ALL_OK = 1
+    public const int REMOVE_ALL_ERR = 2
+
     // команды
     public void head() // установить курсор на первый узел в списке
     public void tail() // установить курсор на последний узел в списке
+
+    public void right() // сдвинуть курсор на один узел вправо
+        - предусловие: список не пустой
+
+    public void put_right(<Node> value) // вставить следом за текущим узлом новый узел с заданным значением
+    public void put_left(<Node> value) // вставить перед текущим узлом новый узел с заданным значением
+
+    public void remove() // удалить текущий узел (курсор смещается к правому соседу, если он есть, в противном случае курсор смещается к левому соседу, если он есть)
+        - предусловие: список не пустой
+
+    public void clear() // очистить список
+        - предусловие: список не пустой
+
+    public void add_tail(<Node> value) // добавить новый узел в хвост списка
+
+    public void replace(<Node> value) // заменить значение текущего узла на заданное
+        - предусловие: список не пустой
+
+    public void find(<T> value) // установить курсор на следующий узел с искомым значением (по отношению к текущему узлу)
+        - предусловие: список не пустой
+
+    public void remove_all(<T> value) // удалить в списке все узлы с заданным значением
+        - предусловие: список не пустой
+
+    // запросы
+    public <T> get() // получить значение текущего узла
+    public <int> size() // посчитать количество узлов в списке
+    public <bool> is_head() // находится ли курсор в начале списка?
+    public <bool> is_tail() // находится ли курсор в конце списка?
+    public <bool> is_value() // установлен ли курсор на какой-либо узел в списке (по сути, непустой ли список).
+
+    public int right_status()
+    public int remove_status()
+    public int clear_status()
+    public int replace_status()
+    public int find_status()
+    public int remove_all_status()
+
+
+# Ответы на вопросы
+1. Почему операция tail не сводима к другим операциям (если исходить из эффективной реализации)?
+    - Так как при эффективной реализации последняя нода хранится в переменной и ее легко найти и пометить курсором O(1)
+
+2. Операция поиска всех узлов с заданным значением, выдающая список таких узлов, уже не нужна. Почему?
+    -  У нас имеется операция find, которая после нахождения первого искомого элемента перемещает курсор на него.
+        Т.е. можно в цикле ее вызывать и получать необходмые данные

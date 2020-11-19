@@ -11,72 +11,66 @@ class LinkedList<T>
     private <Node> tail // хвост
     private <Node> cursor // курсор
 
-    private int right_status
-    private int remove_status
-    private int clear_status
-    private int replace_status
-    private int find_status
-    private int remove_all_status
-
-
-    public const int RIGHT_OK = 1
-    public const int RIGHT_ERR = 2
-
-    public const int REMOVE_OK = 1
-    public const int REMOVE_ERR = 2
-
-    public const int CLEAR_OK = 1
-    public const int CLEAR_ERR = 2
-
-    public const int REPLACE_OK = 1
-    public const int REPLACE_ERR = 2
-
-    public const int FIND_OK = 1
-    public const int FIND_ERR = 2
-
-    public const int REMOVE_ALL_OK = 1
-    public const int REMOVE_ALL_ERR = 2
-
     // команды
     public void head() // установить курсор на первый узел в списке
+        - предусловие: список не пустой
+        - постусловие: курсор установлен на первый узел
+
     public void tail() // установить курсор на последний узел в списке
+        - предусловие: список не пустой
+        - постусловие: курсор установлен на последний узел
 
     public void right() // сдвинуть курсор на один узел вправо
-        - предусловие: список не пустой
+        - предусловие: список не пустой, есть элемент справа от курсора
+        - постусловие: курсор сдвинут вправо
 
     public void put_right(<Node> value) // вставить следом за текущим узлом новый узел с заданным значением
+        - предусловие: список не пустой
+        - постусловие: справа от курсора добавлен новый элемент
+
     public void put_left(<Node> value) // вставить перед текущим узлом новый узел с заданным значением
+        - предусловие: список не пустой
+        - постусловие: слева от курсора добавлен новый элемент
 
     public void remove() // удалить текущий узел (курсор смещается к правому соседу, если он есть, в противном случае курсор смещается к левому соседу, если он есть)
         - предусловие: список не пустой
+        - текущий узел удалён, курсор смещён к правому соседу, если он есть, в противном случае курсор смещён к левому соседу, если он есть
 
     public void clear() // очистить список
-        - предусловие: список не пустой
+        - постусловие: список очищен
 
     public void add_tail(<Node> value) // добавить новый узел в хвост списка
+        - постусловие: элемент добавлен в хвост
 
     public void replace(<Node> value) // заменить значение текущего узла на заданное
         - предусловие: список не пустой
+        - постусловие: значение текущего узла заменено на новое
 
     public void find(<T> value) // установить курсор на следующий узел с искомым значением (по отношению к текущему узлу)
-        - предусловие: список не пустой
+        - постусловие: курсор установлен на искомом
 
     public void remove_all(<T> value) // удалить в списке все узлы с заданным значением
-        - предусловие: список не пустой
+        - постусловие: удалены всё с заданым значением
 
     // запросы
     public <T> get() // получить значение текущего узла
+        - предусловие: список не пустой
+
     public <int> size() // посчитать количество узлов в списке
     public <bool> is_head() // находится ли курсор в начале списка?
     public <bool> is_tail() // находится ли курсор в конце списка?
     public <bool> is_value() // установлен ли курсор на какой-либо узел в списке (по сути, непустой ли список).
 
-    public int right_status()
-    public int remove_status()
-    public int clear_status()
-    public int replace_status()
-    public int find_status()
-    public int remove_all_status()
+    // запросы статусов (возможные значения статусов)
+    public int get_head_status(); // успешно; список пуст
+    public int get_tail_status(); // успешно; список пуст
+    public int get_right_status(); // успешно; правее нету элемента
+    public int get_put_right_status(); // успешно; список пуст
+    public int get_put_left_status(); // успешно; список пуст
+    public int get_remove_status(); // успешно; список пуст
+    public int get_replace_status(); // успешно; список пуст
+    public int get_find_status(); // следующий найден; следующий не найден; список пуст
+    public int get_get_status(); // успешно; список пуст
 
 
 # Ответы на вопросы

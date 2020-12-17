@@ -1,6 +1,6 @@
-# АТД Queue
+# АТД ParentQueue
 #
-# abstract class Queue<T>
+# abstract class ParentQueue<T>
 #
 #   public void push_back(<T> value) // добавление в конец очереди
 #       - постусловие: в конец очереди добавлен новый элемент
@@ -22,9 +22,11 @@
 #   public int get_get_front_status() // статус получения первого элемента из очереди
 #   public int get_pop_front_status() // статус удаления первого элемента из очереди
 
+# АТД Queue
+# abstract class Queue<T> extends ParentQueue
 
 # АТД Deque
-# abstract class Deque<T> extends Queue
+# abstract class Deque<T> extends ParentQueue
 #
 #   public void push_front(<T> value) // добавление в начало очереди
 #       - постусловие: в начало очереди добавлен новый элемент
@@ -42,7 +44,7 @@
 #   public int get_pop_back_status() // статус удаления последнего элемента из очереди
 
 
-class Queue:
+class ParentQueue:
     STATUS_NIL = 0
     STATUS_OK = 1
     STATUS_ERR = 2
@@ -95,7 +97,11 @@ class Queue:
         return self.pop_front_status
 
 
-class Deque(Queue):
+class Queue(ParentQueue):
+    pass
+
+
+class Deque(ParentQueue):
     def __init__(self):
         super().__init__()
 

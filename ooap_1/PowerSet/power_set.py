@@ -8,6 +8,19 @@
 #       - предусловие: в таблице есть место, во множестве нет такого же элемента
 #       - постусловие: в таблицу добавлен новый элемент
 #
+#   // команды
+#   public PowerSet intersection(PowerSet set) - пересечение множеств
+#       - постусловие: новый PowerSet с пересечением двух множеств
+#
+#   public PowerSet union(PowerSet set) - объединение множеств
+#       - постусловие: новый PowerSet с объединенными множествами
+#
+#   public PowerSet difference(PowerSet set) - разница множеств
+#       - постусловие: новый PowerSet с разницей множеств
+#
+#   public bool issubset(PowerSet set) - явлется ли set подмножеством текущего множества
+#
+#
 
 from ooap_1.HashTable.hash_table import HashTable
 
